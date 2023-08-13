@@ -1,0 +1,63 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.search-form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input[type='text'] {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #eb80e0;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button.load-more {
+  display: block;
+  margin: 0 auto;
+  background-color: #a93fb7;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.photo-card {
+  width: 300px;
+  margin: 10px;
+  border: 1px solid #c589bd;
+  padding: 10px;
+}
+
+.photo-card img {
+  width: 100%;
+  height: auto;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: #f2f2f2;
+  font-size: 14px;
+  color: black;
+}
+
+.info-item {
+  margin-right: 10px;
+}
