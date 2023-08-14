@@ -17,13 +17,9 @@ export async function getFetchPhoto(query, page = 1) {
       },
     });
 
-    if (response.status >= 400) {
-      throw new Error('API error');
-    }
-
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching images:', error);
+    console.log(error.message);
   }
 }
 // export async function getFetchPhoto(searchQuery, page = 1) {

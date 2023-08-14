@@ -8,7 +8,9 @@ import { getFetchPhoto } from './pixabay-api';
 const searchForm = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 const loadMore = document.querySelector('.load-more');
+loadMore.style.display = 'none';
 
+const maxPages = 13;
 let fetchingInProgress = false; // Перевірка наявності активного запиту
 let currentSearchQuery = '';
 let page = 1;
@@ -51,16 +53,19 @@ async function handleSearchFormSubmit(event) {
   try {
     fetchingInProgress = true; // Позначаємо, що запит активний
     const { hits, totalHits } = await getFetchPhoto(searchQuery, page);
+
     if (hits.length === 0) {
+      loadMore.style.display = 'none';
       Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
       return;
     }
     createTemplatePhoto(hits);
-
+    if (hits.length === 40) {
+      loadMore.style.display = 'block';
+    }
     if (hits.length < totalHits) {
-      // document.querySelector('.load-more').style.display = 'block';
     }
     Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
   } catch (error) {
@@ -73,20 +78,24 @@ async function handleSearchFormSubmit(event) {
 loadMore.addEventListener('click', loadMoreImages);
 
 async function loadMoreImages() {
+  if (page > maxPages) {
+    loadMore.style.display = 'none';
+    return;
+  }
   page += 1;
   try {
     fetchingInProgress = true; // Позначаємо, що запит активний
     const { hits, totalHits } = await getFetchPhoto(currentSearchQuery, page);
+    // loadMore.disabled = true;
     createTemplatePhoto(hits);
-    loadMore.disabled = true;
 
     // Оновлюємо SimpleLightbox з новими зображеннями
     lightbox.refresh();
 
     const loadedImagesCount = (page - 1) * 40 + hits.length;
     if (loadedImagesCount >= totalHits) {
-      // document.querySelector('.load-more').style.display = 'none';
-      loadMore.disabled = false;
+      loadMore.style.display = 'none';
+      //   loadMore.disabled = false;
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
       );

@@ -23,12 +23,21 @@ button {
   border: none;
   cursor: pointer;
 }
-
-button.load-more {
+/* .load-more.is-hidden {
+  display: none;
+} */
+.load-more {
   display: block;
   margin: 0 auto;
   background-color: #a93fb7;
 }
+
+/* .search-btn:hover,
+.search-btn:focus,
+.load-more:hover,
+.load-more:focus {
+  background-color: #27ae60;
+} */
 
 .gallery {
   display: flex;
